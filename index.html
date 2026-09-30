@@ -2133,6 +2133,12 @@ html[dir="rtl"] .culture-subtopics{direction:rtl}
 @media(max-width:680px){.culture-subtopics{display:grid;grid-template-columns:1fr}.culture-chip{width:100%}}
 </style>
 
+<style id="post-drawer-fix">
+/* A transformed ancestor turns position:fixed into "fixed to that ancestor", which pushed the share drawer off-screen when scrolled. While the drawer is open, drop those transforms so it pins to the viewport. */
+html.post-drawer-open body#sawsana-app#sawsana-app#sawsana-app #community,
+html.post-drawer-open body#sawsana-app#sawsana-app#sawsana-app #community .community-layout,
+html.post-drawer-open #community,html.post-drawer-open #community .community-layout{transform:none!important;filter:none!important;will-change:auto!important;animation:none!important;transition:none!important;contain:none!important}
+</style>
 </head>
 <body id="sawsana-app">
 <script>
@@ -3033,7 +3039,7 @@ document.addEventListener('click',e=>{if(mobileMoreSheet?.classList.contains('op
 document.getElementById("moreFilters")?.addEventListener("click",function(){const f=document.getElementById("filters"),open=f.classList.toggle("expanded");this.textContent=open?"Less ↑":"More ▾";if(typeof translateSubtree==="function"&&siteLang==="ar")translateSubtree(this,"ar")});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-scroll]");if(!b)return;document.getElementById(b.dataset.scroll)?.scrollIntoView({behavior:"smooth",block:"start"})});
 const shareStoryBtn=document.getElementById("shareStoryBtn"),postDrawer=document.getElementById("postDrawer"),commBackdrop=document.getElementById("commBackdrop"),closePostForm=document.getElementById("closePostForm");
-function setPostDrawer(open){postDrawer?.classList.toggle("open",open);commBackdrop?.classList.toggle("open",open);postDrawer?.setAttribute("aria-hidden",String(!open));commBackdrop?.setAttribute("aria-hidden",String(!open));document.body.classList.toggle("no-scroll",open)}
+function setPostDrawer(open){postDrawer?.classList.toggle("open",open);commBackdrop?.classList.toggle("open",open);postDrawer?.setAttribute("aria-hidden",String(!open));commBackdrop?.setAttribute("aria-hidden",String(!open));document.body.classList.toggle("no-scroll",open);document.documentElement.classList.toggle("post-drawer-open",open)}
 shareStoryBtn?.addEventListener('click',()=>{if(typeof communityUser!=='undefined'&&!communityUser){location.href='login.html';return}setPostDrawer(true)});closePostForm?.addEventListener("click",()=>setPostDrawer(false));commBackdrop?.addEventListener("click",()=>setPostDrawer(false));
 
 
